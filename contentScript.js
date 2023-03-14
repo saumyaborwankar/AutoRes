@@ -10,7 +10,7 @@
     if (msg.data === 'pdfData') { // receive message
       const pdfRawData = msg.pdfRawData;
   
-      //create APi req to OpenAPI for data from popup.js (pdfRawData) and content.js (webpageText)
+      //create APi req to OpenAI for data from popup.js (pdfRawData) and content.js (webpageText)
   
   
   
@@ -19,7 +19,7 @@
       const uniqTexts = "gott it";
   
   
-      //send response from OPenAPI back to popup.js for making divs on extension
+      //send response from OPenAI back to popup.js for making divs on extension
       sendResponse(uniqTexts);
     }
   });
