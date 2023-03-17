@@ -23,13 +23,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       }
     });
-    console.log('pdf input change', pdftext.slice(0, 10));
+    console.log('pdf input change', pdftext);
   });
 
-
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.type === 'openAIResponse') {
+      // console.log('response from openai generated',request.suggestion);
+      addSuggestions(request.suggestion);
+    }
+  });
 
   // send data to content.js when submit button pressed
-
+  
   submitBtn.addEventListener('click', function() {
     console.log('submit button pressed', pdftext.slice(0, 10));
       chrome.tabs.query({active: true, currentWindow: true}, ([tab]) => {
@@ -43,15 +48,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             //receive response from content.js
             console.log(response);
-            addSuggestions(response);
+            // addSuggestions(response);
           })
       });
   });
 });
+
 function addSuggestions(response){
   //create divs for suggestions
 
-  console.log('function',response);
+  console.log('received response from OpenAI',response);
 }
 
 
