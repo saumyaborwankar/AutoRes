@@ -1,9 +1,14 @@
+<link href="popup.css" rel="stylesheet" type="text/css" />
 <script type="module" src="popup.js"></script>
 <script src="pdf.min.js"></script>
 <script src="pdf.worker.min.js"></script>
 <div>
-  <input type="file" id="pdf-file" accept=".pdf"><br>
-  <button id="submit-btn">Submit</button>
+  <h2>AutoRes</h2>
+  <p></p>
+  <span id="file-name"></span><br>
+  <input type="file" id="pdf-file" accept=".pdf">
+  <button id="submit-btn" class="button-3" role="button">Submit</button><br>
+  <div class="loader" id="loading"></div>
 </div>
-<div id="popup-body"></div>
+<ul id="popup-body"></ul>
 

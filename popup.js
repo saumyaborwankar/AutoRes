@@ -1,14 +1,22 @@
-// import * as pdfjsLib from './pdf.js';
 pdfjsLib.GlobalWorkerOptions.workerSrc = chrome.runtime.getURL('pdf.worker.min.js');
 document.addEventListener('DOMContentLoaded', function() {
   var pdftext = "";
-
+  //loading animation toggle on/off
+  const loading = document.getElementById('loading');
+  
+  // submit button
   var submitBtn = document.getElementById('submit-btn');
+
+  //pdf input button
   const pdfFileInput = document.getElementById("pdf-file");
 
   // update the pdftext varaible with change in input 
   pdfFileInput.addEventListener('change', () => {
+
+    // Update the file name in the span tag
+    const fileNameSpan = document.getElementById('file-name');
     const file = pdfFileInput.files[0];
+    fileNameSpan.textContent = file ? file.name : '';
     pdfjsLib.getDocument(URL.createObjectURL(file)).promise.then(pdf => {
       // Loop through each page of the PDF file
       pdftext="";
@@ -27,8 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    //loading animation toggle off
+    loading.style.display = 'none';
     if (request.type === 'openAIResponse') {
-      // console.log('response from openai generated',request.suggestion);
       addSuggestions(request.suggestion);
     }
   });
@@ -36,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // send data to content.js when submit button pressed
   
   submitBtn.addEventListener('click', function() {
+    //loading animation toggle on
+    loading.style.display = 'block';
     console.log('submit button pressed', pdftext.slice(0, 10));
       chrome.tabs.query({active: true, currentWindow: true}, ([tab]) => {
         chrome.tabs.sendMessage(
@@ -43,12 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
           {
             type: 'pdfData', 
             data: pdftext
-          },
-          function(response){ 
-            
-            //receive response from content.js
-            console.log(response);
-            // addSuggestions(response);
           })
       });
   });
@@ -84,7 +89,7 @@ function addSuggestions(response){
   // Loop through the list items and create a new <div> tag for each one
   for (let i = 0; i < listItems.length; i++) {
     // Create a new <div> tag
-    const newItemDiv = document.createElement('div');
+    const newItemDiv = document.createElement('li');
     
     // Set the text content of the <div> tag to the current list item
     newItemDiv.textContent = listItems[i];
@@ -93,11 +98,3 @@ function addSuggestions(response){
     popupBody.appendChild(newItemDiv);
   }
 }
-
-
-// Dummy content_security_policy for manifest.json
-// "content_security_policy": {
-//   "extension_pages": "script-src 'self'; object-src 'self'",
-//   "script-src": ["'self'", "https://cdnjs.cloudflare.com"],
-//   "web_accessible_resources": "script-src 'self' https://cdnjs.cloudflare.com"
-// },
