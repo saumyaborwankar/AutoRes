@@ -3,10 +3,9 @@
   console.log(window.location.href);
   // get data from webpage
   var webpageText = "";
-  const apiKey = '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'; // replace with your actual API key
+  const apiKey = ''; // replace with your actual API key
    // replace with your actual prompt
-  
-  
+
   
   
   //wait for data to be sent from popup.js
@@ -26,7 +25,10 @@
     if (request.type === 'pdfData') { // receive message
       // console.log("received pdf content from popup.js",request.data, webpageText);
       const suggestionFromOpenAI = "received pdf content from popup.js";
-      const prompt = `List the top 10 requirements that should be present in a candidate resume based on the following job description. "${webpageText}" \n  AI:`;
+      // const prompt = `List the top 10 requirements that should be present in a candidate resume based on the following job description. "${webpageText}" \n  AI:`;
+      const prompt = `Based on the following job description and my resume suggest changes in my resume to match the top 10 requirements only in the form of HTML tags <li></li> of the job description; Here is the Job Description: "${webpageText}"; and here is my resume: ${request.data} \n AI: `
+      // const prompt = `Based on the following job description and my resume suggest changes in my resume to match the top 10 requirements of the job description; Here is the Job Description: ; and here is my resume: ${request.data} \n AI: `
+      
       console.log(prompt);
       // console.log(webpageText);
 
@@ -43,7 +45,7 @@
         body: JSON.stringify({
           'model': 'text-davinci-003',
           'prompt': `${prompt}`,
-          'max_tokens': 150,
+          'max_tokens': 250,
           'stop': [
             ' Human:',
             ' AI:'
@@ -74,3 +76,17 @@
     }
   });
   })();
+
+
+{/* <li>Demonstrated experience of working within AI/ML domains</li>
+<li>Demonstrated use of algorithms and AI paradigms such as Deep Learning, Machine Learning, etc</li>
+
+Programming: 
+<li>Well versed in developing RESTful API services</li> 
+<li>Experience of developing applications/ software using programming languages like Java, C++, Python, C#, Go, etc</li> 
+<li>Familiar with Linux OS development environment</li> 
+<li>Project experience with any one area of Graphics/Media/Display/ML/AI</li>
+
+Web Technologies: 
+<li>Agile development approaches with experience on tools and frameworks such as HTML, CSS, JavaScript, React.js, AJAX, Bootstrap, Selenium, etc</li> 
+<li>Proficiency with database systems like PostgreSQL and Mongo DB</li> */}
