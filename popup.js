@@ -57,7 +57,41 @@ document.addEventListener('DOMContentLoaded', function() {
 function addSuggestions(response){
   //create divs for suggestions
 
-  console.log('received response from OpenAI',response);
+  // console.log('received response from OpenAI',response.choices[0].text);
+  const htmlString = response.choices[0].text;
+  // Create a new DOMParser object
+  const parser = new DOMParser();
+
+  // Use the parseFromString method to parse the HTML string as a document
+  const doc = parser.parseFromString(htmlString, 'text/html');
+
+  // Use the querySelectorAll method to select all <li> tags in the document
+  const liElements = doc.querySelectorAll('li');
+
+  // Create an empty array to store the list items
+  const listItems = [];
+
+  // Loop through the <li> elements and push each one to the array
+  for (let i = 0; i < liElements.length; i++) {
+    listItems.push(liElements[i].textContent);
+  }
+
+  // Log the array of list items
+  console.log(listItems);
+  // Get the body element of the popup window
+  const popupBody = document.getElementById('popup-body');
+
+  // Loop through the list items and create a new <div> tag for each one
+  for (let i = 0; i < listItems.length; i++) {
+    // Create a new <div> tag
+    const newItemDiv = document.createElement('div');
+    
+    // Set the text content of the <div> tag to the current list item
+    newItemDiv.textContent = listItems[i];
+    
+    // Append the new <div> tag to the popup body
+    popupBody.appendChild(newItemDiv);
+  }
 }
 
 
