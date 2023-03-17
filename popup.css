@@ -1,54 +1,92 @@
-.container {
-  width: 280px;
-  color: #314d3e;
+
+
+/* CSS */
+.loader {
+  display: none;
+  margin: 1 auto;
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #3498db;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
 }
 
-.title {
-  font-size: 14px;
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.h1{
+  text-align: center;
+}
+#submit-btn {
+  display: block;
+  margin: 0 auto;
+}
+input::file-selector-button {
   font-weight: bold;
-  padding: 8px;
+  color: dodgerblue;
+  padding: 0.5em;
+  border: thin solid grey;
+  border-radius: 3px;
+  display: block;
+  margin: 0 auto;
 }
-
-.textbox {
-  width: 100%;
-  font-size: 12px;
-  margin: 0;
-  padding: 0px 2px;
+#pdf-file {
+  color: transparent;
 }
-
-.textbox:focus {
-  outline: 0;
-  border-color: #66afe9;
-}
-
-.bookmarks {
-  margin: 5px 5px;
-  padding: 3px;
-}
-
-.bookmark {
-  display: flex;
-  border-bottom-color: #00254d;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-radius: 0.8rem;
-  padding: 3px;
-  padding-bottom: 7px;
-  margin-bottom: 7px;
-}
-
-.bookmark-title {
-  padding-left: 2px;
-}
-
-.bookmark-controls img {
-  margin: 0 4px;
-  width: 18px;
-  height: 18px;
+.button-3 {
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
   cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
-.bookmark-controls {
-  flex: auto;
-  text-align: right;
+.button-3:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.button-3:hover {
+  background-color: #2c974b;
+}
+
+.button-3:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.button-3:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.button-3:active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
